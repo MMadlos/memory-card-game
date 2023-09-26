@@ -7,17 +7,19 @@ import Card from "./components/Card"
 const API_URL = "https://pokeapi.co/api/v2/pokemon/"
 const POKEMON_LIST_EASY = ["pikachu", "charmander", "dragonite", "squirtle", "bulbasaur", "gyarados", "psyduck", "snorlax", "mewtwo", "mew"]
 
+const getFethedURL = (data) => data.sprites.other["official-artwork"].front_default
+
 function App() {
 	const [pokemonList, setPokemonList] = useState([])
 
-	// Fetch api
 	useEffect(() => {
 		function fetchPokemon(pokemonName) {
 			fetch(API_URL + pokemonName, { mode: "cors" })
 				.then((res) => res.json())
 				.then((pokemon) => {
-					const URL = pokemon.sprites.other["official-artwork"].front_default
-					const pokemonData = { name: pokemon.name, id: pokemon.id, url: URL }
+					const URL = getFethedURL(pokemon)
+					const { name, id } = pokemon
+					const pokemonData = { name, id, url: URL }
 
 					setPokemonList((prev) => [...prev, pokemonData])
 				})
