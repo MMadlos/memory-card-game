@@ -1,0 +1,130 @@
+/* RESET CSS */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	/* font: inherit; */
+}
+
+html {
+	color-scheme: dark light;
+}
+
+body {
+	max-height: 100vh;
+	max-width: 100vw;
+	height: 100vh;
+}
+
+/* img, */
+picture,
+svg,
+video {
+	display: block;
+	max-width: 100%;
+}
+
+/* GENERIC */
+#root {
+	padding: 40px;
+	display: grid;
+	grid-template-columns: 300px 1fr;
+	height: 100%;
+	max-height: 100%;
+}
+
+/* ASIDE */
+
+aside {
+	font-family: "Inter", sans-serif;
+	.logo-container {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 8px;
+		margin-bottom: 40px;
+
+		> img {
+			height: 2rem;
+			aspect-ratio: 1/1;
+		}
+
+		> h1 {
+			font-family: "Anton", sans-serif;
+			font-weight: 200;
+			font-size: 2rem;
+			color: #ed4235;
+		}
+	}
+
+	.level-container {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		align-items: start;
+		justify-content: start;
+		font-weight: 700;
+
+		margin-bottom: 40px;
+
+		> select {
+			font-size: 1rem;
+			padding: 8px 16px;
+			border-radius: 6px;
+			background: none;
+			border: 1px solid #333;
+
+			/* Arrow */
+			appearance: none;
+			background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+			background-repeat: no-repeat;
+			background-position: right 0.7rem top 50%;
+			background-size: 0.65rem auto;
+		}
+	}
+
+	.current-points-container,
+	.max-points-container {
+		color: #333;
+		font-weight: 700;
+
+		> p:nth-child(2) {
+			font-size: 2rem;
+		}
+
+		margin-bottom: 40px;
+	}
+}
+
+/* MAIN / Card list */
+
+#card-list {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 8px;
+	height: 100%;
+	width: 100%;
+
+	.card-container {
+		background-color: #f4e2ac;
+		border: 1px solid lightslategrey;
+		border-radius: 12px;
+		overflow: hidden;
+
+		&:hover {
+			opacity: 50%;
+		}
+
+		> img {
+			object-fit: contain;
+			width: 100%;
+			height: 100%;
+		}
+	}
+}

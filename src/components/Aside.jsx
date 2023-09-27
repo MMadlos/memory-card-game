@@ -25,7 +25,7 @@ function Aside() {
 				<p>Puntuación actual</p>
 				<p>#</p>
 			</div>
-			<div className="max-points-cont">
+			<div className="max-points-container">
 				<p>Máxima puntuación</p>
 				<p>#</p>
 			</div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-import "./App.css"
+import "./Styles.css"
 import Aside from "./components/Aside"
 import Card from "./components/Card"
 
@@ -37,7 +37,6 @@ function App() {
 		<>
 			<Aside />
 			<main id="card-list">
-				{console.log(pokemonList)}
 				{pokemonList.map((pokemon) => {
 					return (
 						<Card
