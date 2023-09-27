@@ -54,7 +54,7 @@ function App() {
 				setCurrentPoints(0)
 				setClickedPokemon([])
 			} else {
-				const newList = randomizePokemonListOrder(10)
+				const newList = randomPokemonOrder()
 				setPokemonList(newList)
 				setCurrentPoints(newCurrentPoints)
 				setClickedPokemon((prev) => [...prev, pokemonID])
@@ -69,20 +69,19 @@ function App() {
 		}
 	}
 
-	function randomizePokemonListOrder(numberOfTimes) {
-		const listLength = pokemonList.length
+	function randomPokemonOrder() {
 		const currentPokemonList = pokemonList
+		const lengthPokemonList = pokemonList.length
+		let newArray = []
 
-		for (let i = 0; i < numberOfTimes; i++) {
-			const randomNumber = getRandomNumber(listLength)
-			const extractedPokemon = currentPokemonList[randomNumber]
+		for (let i = 0; i < lengthPokemonList; i++) {
+			const randomNumber = getRandomNumber(currentPokemonList.length)
+
+			newArray.push(currentPokemonList[randomNumber])
 			currentPokemonList.splice(randomNumber, 1)
-			currentPokemonList.push(extractedPokemon)
-
-			console.log(currentPokemonList)
 		}
 
-		return currentPokemonList
+		return newArray
 	}
 
 	return (
