@@ -33,14 +33,12 @@ function getRandomUniqueIDs(numberOfIDs) {
 	return arrayWithIDs
 }
 
-const POKEMON_LIST_EASY = ["pikachu", "charmander", "dragonite", "squirtle", "bulbasaur", "gyarados", "psyduck", "snorlax", "mewtwo", "mew"]
-
 function App() {
 	const [pokemonList, setPokemonList] = useState([])
 	const [clickedPokemon, setClickedPokemon] = useState([])
 	const [currentPoints, setCurrentPoints] = useState(0)
 	const [maxPoints, setMaxPoints] = useState(0)
-	const [levelSelected, setLevelSelected] = useState("easey")
+	const [levelSelected, setLevelSelected] = useState("easy")
 
 	useEffect(() => {
 		function fetchPokemon(pokemonName) {
@@ -55,13 +53,22 @@ function App() {
 				})
 		}
 
-		if (levelSelected === "easey") POKEMON_LIST_EASY.forEach((pokemon) => fetchPokemon(pokemon))
+		if (levelSelected === "easy") {
+			console.log("FUNCIONA FACIL")
+			const POKEMON_LIST_EASY = ["pikachu", "charmander", "dragonite", "squirtle", "bulbasaur", "gyarados", "psyduck", "snorlax", "mewtwo", "mew"]
+
+			POKEMON_LIST_EASY.forEach((pokemon) => fetchPokemon(pokemon))
+		}
 		if (levelSelected === "medium") {
+			console.log("FUNCIONA MEDIO")
+
 			const randomIDs = getRandomUniqueIDs(20)
 			randomIDs.forEach((id) => fetchPokemon(id))
 		}
 
 		if (levelSelected === "hard") {
+			console.log("FUNCIONA DIFICIL")
+
 			const randomIDs = getRandomUniqueIDs(40)
 			randomIDs.forEach((id) => fetchPokemon(id))
 		}
