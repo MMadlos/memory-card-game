@@ -5,12 +5,10 @@ import Aside from "./components/Aside"
 import Card from "./components/Card"
 
 const API_URL = "https://pokeapi.co/api/v2/pokemon/"
-const POKEMON_LIST_EASY = ["pikachu", "charmander", "dragonite", "squirtle", "bulbasaur", "gyarados", "psyduck", "snorlax", "mewtwo", "mew"]
 
 const getFethedURL = (data) => data.sprites.other["official-artwork"].front_default
 
 function getRandomIntInclusive(min = 0, max) {
-	// The max and min are inclusive
 	min = Math.ceil(min)
 	max = Math.floor(max)
 	return Math.floor(Math.random() * (max - min + 1) + min)
@@ -35,14 +33,14 @@ function getRandomUniqueIDs(numberOfIDs) {
 	return arrayWithIDs
 }
 
+const POKEMON_LIST_EASY = ["pikachu", "charmander", "dragonite", "squirtle", "bulbasaur", "gyarados", "psyduck", "snorlax", "mewtwo", "mew"]
+
 function App() {
 	const [pokemonList, setPokemonList] = useState([])
 	const [clickedPokemon, setClickedPokemon] = useState([])
 	const [currentPoints, setCurrentPoints] = useState(0)
 	const [maxPoints, setMaxPoints] = useState(0)
-
-	const mediumIDs = getRandomUniqueIDs(10)
-	console.log(mediumIDs)
+	const [levelSelected, setLevelSelected] = useState("easey")
 
 	useEffect(() => {
 		function fetchPokemon(pokemonName) {
@@ -57,13 +55,24 @@ function App() {
 				})
 		}
 
-		POKEMON_LIST_EASY.forEach((pokemon) => fetchPokemon(pokemon))
+		if (levelSelected === "easey") POKEMON_LIST_EASY.forEach((pokemon) => fetchPokemon(pokemon))
+		if (levelSelected === "medium") {
+			const randomIDs = getRandomUniqueIDs(20)
+			randomIDs.forEach((id) => fetchPokemon(id))
+		}
+
+		if (levelSelected === "hard") {
+			const randomIDs = getRandomUniqueIDs(40)
+			randomIDs.forEach((id) => fetchPokemon(id))
+		}
 
 		return () => {
 			const emptyArray = []
 			setPokemonList(emptyArray)
+			setCurrentPoints(0)
+			setClickedPokemon(emptyArray)
 		}
-	}, [])
+	}, [levelSelected])
 
 	function handleOnClick(e) {
 		const { key } = e.target.dataset
@@ -101,7 +110,7 @@ function App() {
 
 		let newArray = []
 		for (let i = 0; i < lengthPokemonList; i++) {
-			const randomNumber = getRandomIntInclusive(currentPokemonList.length - 1)
+			const randomNumber = getRandomIntInclusive(0, currentPokemonList.length - 1)
 
 			newArray.push(currentPokemonList[randomNumber])
 			currentPokemonList.splice(randomNumber, 1)
@@ -115,6 +124,7 @@ function App() {
 			<Aside
 				currentPoints={currentPoints}
 				maxPoints={maxPoints}
+				onChangeLevel={(e) => setLevelSelected(e.target.value)}
 			/>
 			<main id="card-list">
 				{pokemonList.map((pokemon) => {

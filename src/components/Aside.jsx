@@ -1,6 +1,6 @@
 import pokeballLogo from "../assets/pokeball-logo.jpg"
 
-function Aside({ currentPoints, maxPoints }) {
+function Aside({ currentPoints, maxPoints, onChangeLevel }) {
 	return (
 		<aside>
 			<div className="logo-container">
@@ -15,7 +15,8 @@ function Aside({ currentPoints, maxPoints }) {
 				<label htmlFor="level">Dificultad</label>
 				<select
 					name="level"
-					id="level">
+					id="level"
+					onChange={onChangeLevel}>
 					<option value="easy">Fácil</option>
 					<option value="medium">Normal</option>
 					<option value="hard">Difícil</option>
