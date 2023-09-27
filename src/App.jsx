@@ -11,6 +11,9 @@ const getFethedURL = (data) => data.sprites.other["official-artwork"].front_defa
 
 function App() {
 	const [pokemonList, setPokemonList] = useState([])
+	const [clickedPokemon, setClickedPokemon] = useState([])
+	const [currentPoints, setCurrentPoints] = useState(0)
+	const [maxPoints, setMaxPoints] = useState(0)
 
 	useEffect(() => {
 		function fetchPokemon(pokemonName) {
@@ -33,15 +36,49 @@ function App() {
 		}
 	}, [])
 
+	function handleOnClick(e) {
+		const { key } = e.target.dataset
+		const pokemonID = parseInt(key)
+
+		const wasAlreadyClicked = clickedPokemon.includes(pokemonID)
+
+		if (!wasAlreadyClicked) {
+			const newCurrentPoints = currentPoints + 5
+			console.log(newCurrentPoints)
+			if (newCurrentPoints === 50) {
+				setCurrentPoints(newCurrentPoints)
+				setMaxPoints(newCurrentPoints)
+				alert("Wow! You have an excelent memory. You clicked all Pokemon")
+				setCurrentPoints(0)
+				setClickedPokemon([])
+			} else {
+				setCurrentPoints(newCurrentPoints)
+				setClickedPokemon((prev) => [...prev, pokemonID])
+			}
+		}
+
+		if (wasAlreadyClicked) {
+			if (currentPoints > maxPoints) setMaxPoints(currentPoints)
+			setCurrentPoints(0)
+			setClickedPokemon([])
+			alert("You clicked the same pokemon twice")
+		}
+	}
+
 	return (
 		<>
-			<Aside />
+			<Aside
+				currentPoints={currentPoints}
+				maxPoints={maxPoints}
+			/>
 			<main id="card-list">
 				{pokemonList.map((pokemon) => {
 					return (
 						<Card
 							key={pokemon.id}
 							pokemonURL={pokemon.url}
+							onClick={handleOnClick}
+							pokemonID={pokemon.id}
 						/>
 					)
 				})}

@@ -1,6 +1,6 @@
 import pokeballLogo from "../assets/pokeball-logo.jpg"
 
-function Aside() {
+function Aside({ currentPoints, maxPoints }) {
 	return (
 		<aside>
 			<div className="logo-container">
@@ -23,11 +23,11 @@ function Aside() {
 			</div>
 			<div className="current-points-container">
 				<p>Puntuación actual</p>
-				<p>#</p>
+				<p>{currentPoints}</p>
 			</div>
 			<div className="max-points-container">
 				<p>Máxima puntuación</p>
-				<p>#</p>
+				<p>{maxPoints}</p>
 			</div>
 
 			<div className="buttons-container">
