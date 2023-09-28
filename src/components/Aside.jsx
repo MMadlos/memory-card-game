@@ -10,10 +10,22 @@ function Aside({ currentPoints, maxPoints, onChangeLevel, onClickInstructions })
 					alt="a normal pokeball as a logo of the page"
 				/>
 				<h1>Pokememory</h1>
-			</div>
 
+				<div className="icon-container">
+					<i
+						className="fa-solid fa-circle-question"
+						onClick={onClickInstructions}
+					/>
+					<a
+						href="https://github.com/MMadlos/memory-card-game"
+						target="_blank"
+						rel="noreferrer">
+						<i className="fa-brands fa-github" />
+					</a>
+				</div>
+			</div>
 			<div className="level-container">
-				<label htmlFor="level">Dificultad</label>
+				<label htmlFor="level">Nivel</label>
 				<select
 					name="level"
 					id="level"
@@ -25,10 +37,14 @@ function Aside({ currentPoints, maxPoints, onChangeLevel, onClickInstructions })
 			</div>
 
 			<div className="points-container">
-				<p className="points-title">Puntuación actual</p>
-				<p className="points">{currentPoints}</p>
-				<p className="points-title">Máxima puntuación</p>
-				<p className="points">{maxPoints}</p>
+				<div className="current-container">
+					<p className="points-title">Puntuación actual</p>
+					<p className="points">{currentPoints}</p>
+				</div>
+				<div className="max-container">
+					<p className="points-title">Máxima puntuación</p>
+					<p className="points">{maxPoints}</p>
+				</div>
 			</div>
 
 			<div className="buttons-container">
