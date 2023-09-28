@@ -4,36 +4,9 @@ import "./Styles.css"
 import Aside from "./components/Aside"
 import Card from "./components/Card"
 
+import { getFethedURL, getRandomIntInclusive, getPokemonListByLevel } from "./utilities"
+
 const API_URL = "https://pokeapi.co/api/v2/pokemon/"
-
-const getFethedURL = (data) => data.sprites.other["official-artwork"].front_default
-
-function getRandomIntInclusive(min = 0, max) {
-	min = Math.ceil(min)
-	max = Math.floor(max)
-	return Math.floor(Math.random() * (max - min + 1) + min)
-}
-
-function getRandomUniqueIDs(numberOfIDs) {
-	let arrayWithIDs = []
-
-	for (let i = 0; i < numberOfIDs; i++) {
-		loopRandomNumsUntilFound()
-	}
-
-	function loopRandomNumsUntilFound() {
-		const randomNumber = getRandomIntInclusive(1, 151)
-		if (!arrayWithIDs.includes(randomNumber)) {
-			arrayWithIDs.push(randomNumber)
-			return
-		}
-		if (arrayWithIDs.includes(randomNumber)) loopRandomNumsUntilFound()
-	}
-
-	return arrayWithIDs
-}
-
-const POKEMON_LIST_EASY = ["pikachu", "charmander", "dragonite", "squirtle", "bulbasaur", "gyarados", "psyduck", "snorlax", "mewtwo", "mew"]
 
 function App() {
 	const [pokemonList, setPokemonList] = useState([])
@@ -56,23 +29,16 @@ function App() {
 				})
 		}
 
-		const numberCardsByLevel = {
-			medium: 20,
-			hard: 40,
-		}
-
 		if (resetBoard) {
-			const randomIDs = levelSelected === "easy" ? POKEMON_LIST_EASY : getRandomUniqueIDs(numberCardsByLevel[levelSelected])
+			const randomIDs = getPokemonListByLevel(levelSelected)
 			randomIDs.forEach((id) => fetchPokemon(id))
 			setResetBoard(false)
 		}
 
 		return () => {
-			const emptyArray = []
-			setPokemonList(emptyArray)
+			setPokemonList([])
 			setCurrentPoints(0)
-			setClickedPokemon(emptyArray)
-			setResetBoard(false)
+			setClickedPokemon([])
 		}
 	}, [levelSelected, resetBoard])
 
@@ -91,7 +57,7 @@ function App() {
 				setCurrentPoints(0)
 				setClickedPokemon([])
 			} else {
-				const newList = randomPokemonOrder()
+				const newList = randomizeCards()
 				setPokemonList(newList)
 				setCurrentPoints(newCurrentPoints)
 				setClickedPokemon((prev) => [...prev, pokemonID])
@@ -102,12 +68,12 @@ function App() {
 			if (currentPoints > maxPoints) setMaxPoints(currentPoints)
 			setCurrentPoints(0)
 			setClickedPokemon([])
-			alert("You clicked the same pokemon twice. Try again :)")
 			setResetBoard(true)
+			alert("You clicked the same pokemon twice. Try again :)")
 		}
 	}
 
-	function randomPokemonOrder() {
+	function randomizeCards() {
 		const currentPokemonList = pokemonList
 		const lengthPokemonList = pokemonList.length
 
@@ -122,12 +88,22 @@ function App() {
 		return newArray
 	}
 
+	function handleOnChangeLevel(e) {
+		setLevelSelected(e.target.value)
+		setResetBoard(true)
+	}
+
+	function handleOnClickInstructions() {
+		alert("INSTRUCTIONS: Avoid clicking the same pokemon card twice.")
+	}
+
 	return (
 		<>
 			<Aside
-				onChangeLevel={(e) => setLevelSelected(e.target.value)}
+				onChangeLevel={handleOnChangeLevel}
 				currentPoints={currentPoints}
 				maxPoints={maxPoints}
+				onClickInstructions={handleOnClickInstructions}
 			/>
 			<main id="card-list">
 				{pokemonList.map((pokemon) => {

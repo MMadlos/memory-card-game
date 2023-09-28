@@ -1,6 +1,6 @@
 import pokeballLogo from "../assets/pokeball-logo.jpg"
 
-function Aside({ currentPoints, maxPoints, onChangeLevel }) {
+function Aside({ currentPoints, maxPoints, onChangeLevel, onClickInstructions }) {
 	return (
 		<aside>
 			<div className="title-container">
@@ -32,7 +32,11 @@ function Aside({ currentPoints, maxPoints, onChangeLevel }) {
 			</div>
 
 			<div className="buttons-container">
-				<button id="instructions">Instrucciones</button>
+				<button
+					id="instructions"
+					onClick={onClickInstructions}>
+					Instrucciones
+				</button>
 				<a
 					id="github"
 					href="https://github.com/MMadlos/memory-card-game"
