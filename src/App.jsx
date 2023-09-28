@@ -41,7 +41,7 @@ function App() {
 	const [currentPoints, setCurrentPoints] = useState(0)
 	const [maxPoints, setMaxPoints] = useState(0)
 	const [levelSelected, setLevelSelected] = useState("easy")
-	const [gameOver, setGameOver] = useState(false)
+	const [resetBoard, setResetBoard] = useState(true)
 
 	useEffect(() => {
 		function fetchPokemon(pokemonName) {
@@ -61,16 +61,20 @@ function App() {
 			hard: 40,
 		}
 
-		const randomIDs = levelSelected === "easy" ? POKEMON_LIST_EASY : getRandomUniqueIDs(numberCardsByLevel[levelSelected])
-		randomIDs.forEach((id) => fetchPokemon(id))
+		if (resetBoard) {
+			const randomIDs = levelSelected === "easy" ? POKEMON_LIST_EASY : getRandomUniqueIDs(numberCardsByLevel[levelSelected])
+			randomIDs.forEach((id) => fetchPokemon(id))
+			setResetBoard(false)
+		}
 
 		return () => {
 			const emptyArray = []
 			setPokemonList(emptyArray)
 			setCurrentPoints(0)
 			setClickedPokemon(emptyArray)
+			setResetBoard(false)
 		}
-	}, [levelSelected])
+	}, [levelSelected, resetBoard])
 
 	function handleOnClick(e) {
 		const { key } = e.target.dataset
@@ -96,10 +100,10 @@ function App() {
 
 		if (wasAlreadyClicked) {
 			if (currentPoints > maxPoints) setMaxPoints(currentPoints)
-			setGameOver(true)
 			setCurrentPoints(0)
 			setClickedPokemon([])
 			alert("You clicked the same pokemon twice. Try again :)")
+			setResetBoard(true)
 		}
 	}
 
