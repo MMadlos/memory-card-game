@@ -3,7 +3,7 @@ import pokeballLogo from "../assets/pokeball-logo.jpg"
 function Aside({ currentPoints, maxPoints, onChangeLevel }) {
 	return (
 		<aside>
-			<div className="logo-container">
+			<div className="title-container">
 				<img
 					id="logo"
 					src={pokeballLogo}
@@ -11,6 +11,7 @@ function Aside({ currentPoints, maxPoints, onChangeLevel }) {
 				/>
 				<h1>Pokememory</h1>
 			</div>
+
 			<div className="level-container">
 				<label htmlFor="level">Dificultad</label>
 				<select
@@ -22,18 +23,24 @@ function Aside({ currentPoints, maxPoints, onChangeLevel }) {
 					<option value="hard">Difícil</option>
 				</select>
 			</div>
-			<div className="current-points-container">
-				<p>Puntuación actual</p>
-				<p>{currentPoints}</p>
-			</div>
-			<div className="max-points-container">
-				<p>Máxima puntuación</p>
-				<p>{maxPoints}</p>
+
+			<div className="points-container">
+				<p className="points-title">Puntuación actual</p>
+				<p className="points">{currentPoints}</p>
+				<p className="points-title">Máxima puntuación</p>
+				<p className="points">{maxPoints}</p>
 			</div>
 
 			<div className="buttons-container">
 				<button id="instructions">Instrucciones</button>
-				<button id="github">(ICONO) Ver en github</button>
+				<a
+					id="github"
+					href="https://github.com/MMadlos/memory-card-game"
+					target="_blank"
+					rel="noreferrer">
+					{" "}
+					<i className="fa-brands fa-github" /> Ver en github
+				</a>
 			</div>
 		</aside>
 	)

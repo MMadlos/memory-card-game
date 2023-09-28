@@ -118,14 +118,12 @@ function App() {
 		return newArray
 	}
 
-	const isGameOver = gameOver
-
 	return (
 		<>
 			<Aside
+				onChangeLevel={(e) => setLevelSelected(e.target.value)}
 				currentPoints={currentPoints}
 				maxPoints={maxPoints}
-				onChangeLevel={(e) => setLevelSelected(e.target.value)}
 			/>
 			<main id="card-list">
 				{pokemonList.map((pokemon) => {
