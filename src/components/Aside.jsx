@@ -1,4 +1,4 @@
-import PropTypes from "prop-types"
+import Scoreboard from "./Scoreboard"
 import pokeballLogo from "../assets/pokeball-logo.jpg"
 
 function Aside({ currentPoints, maxPoints, onChangeLevel, onClickInstructions }) {
@@ -37,16 +37,10 @@ function Aside({ currentPoints, maxPoints, onChangeLevel, onClickInstructions })
 				</select>
 			</div>
 
-			<div className="points-container">
-				<div className="current-container">
-					<p className="points-title">Puntuación actual</p>
-					<p className="points">{currentPoints}</p>
-				</div>
-				<div className="max-container">
-					<p className="points-title">Máxima puntuación</p>
-					<p className="points">{maxPoints}</p>
-				</div>
-			</div>
+			<Scoreboard
+				currentPoints={currentPoints}
+				maxPoints={maxPoints}
+			/>
 
 			<div className="buttons-container">
 				<button
@@ -65,16 +59,6 @@ function Aside({ currentPoints, maxPoints, onChangeLevel, onClickInstructions })
 			</div>
 		</aside>
 	)
-}
-
-Aside.proptypes = {
-	currentPoints: PropTypes.number,
-	maxPoints: PropTypes.number,
-}
-
-Aside.defaultProps = {
-	currentPoints: 0,
-	maxPoints: 0,
 }
 
 export default Aside
