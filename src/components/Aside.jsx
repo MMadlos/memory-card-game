@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import pokeballLogo from "../assets/pokeball-logo.jpg"
 
 function Aside({ currentPoints, maxPoints, onChangeLevel, onClickInstructions }) {
@@ -64,6 +65,16 @@ function Aside({ currentPoints, maxPoints, onChangeLevel, onClickInstructions })
 			</div>
 		</aside>
 	)
+}
+
+Aside.proptypes = {
+	currentPoints: PropTypes.number,
+	maxPoints: PropTypes.number,
+}
+
+Aside.defaultProps = {
+	currentPoints: 0,
+	maxPoints: 0,
 }
 
 export default Aside
