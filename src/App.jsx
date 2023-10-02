@@ -49,8 +49,9 @@ function App() {
 		const wasAlreadyClicked = clickedPokemon.includes(pokemonID)
 		if (!wasAlreadyClicked) {
 			const newCurrentPoints = currentPoints + 5
+			const maxPoints = pokemonList.length * 5
 
-			if (newCurrentPoints === 50) {
+			if (newCurrentPoints === maxPoints) {
 				setCurrentPoints(newCurrentPoints)
 				setMaxPoints(newCurrentPoints)
 				alert("Wow! You have an excelent memory. You clicked all Pokemon")
@@ -72,21 +73,6 @@ function App() {
 			alert("You clicked the same pokemon twice. Try again :)")
 		}
 	}
-
-	// function randomizeCards() {
-	// 	const currentPokemonList = pokemonList
-	// 	const lengthPokemonList = pokemonList.length
-
-	// 	let newArray = []
-	// 	for (let i = 0; i < lengthPokemonList; i++) {
-	// 		const randomNumber = getRandomIntInclusive(0, currentPokemonList.length - 1)
-
-	// 		newArray.push(currentPokemonList[randomNumber])
-	// 		currentPokemonList.splice(randomNumber, 1)
-	// 	}
-
-	// 	return newArray
-	// }
 
 	function handleOnChangeLevel(e) {
 		setLevelSelected(e.target.value)

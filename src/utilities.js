@@ -51,4 +51,4 @@ function randomizeCards(pokemonList) {
 	return newArray
 }
 
-export { getFethedURL, getRandomIntInclusive, getPokemonListByLevel, randomizeCards }
+export { getFethedURL, getPokemonListByLevel, randomizeCards }
