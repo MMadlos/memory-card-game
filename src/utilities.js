@@ -36,4 +36,19 @@ function getPokemonListByLevel(level) {
 	return level === "easy" ? POKEMON_LIST_EASY : getRandomUniqueIDs(numberCardsByLevel[level])
 }
 
-export { getFethedURL, getRandomIntInclusive, getPokemonListByLevel }
+function randomizeCards(pokemonList) {
+	const currentPokemonList = pokemonList
+	const lengthPokemonList = pokemonList.length
+
+	let newArray = []
+	for (let i = 0; i < lengthPokemonList; i++) {
+		const randomNumber = getRandomIntInclusive(0, currentPokemonList.length - 1)
+
+		newArray.push(currentPokemonList[randomNumber])
+		currentPokemonList.splice(randomNumber, 1)
+	}
+
+	return newArray
+}
+
+export { getFethedURL, getRandomIntInclusive, getPokemonListByLevel, randomizeCards }

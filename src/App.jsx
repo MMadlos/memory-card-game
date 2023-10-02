@@ -2,9 +2,9 @@ import { useState, useEffect } from "react"
 
 import "./Styles.css"
 import Aside from "./components/Aside"
-import Card from "./components/Card"
+import CardList from "./components/CardList"
 
-import { getFethedURL, getRandomIntInclusive, getPokemonListByLevel } from "./utilities"
+import { getFethedURL, getPokemonListByLevel, randomizeCards } from "./utilities"
 
 const API_URL = "https://pokeapi.co/api/v2/pokemon/"
 
@@ -42,7 +42,7 @@ function App() {
 		}
 	}, [levelSelected, resetBoard])
 
-	function handleOnClick(e) {
+	function handleOnClickCard(e) {
 		const { key } = e.target.dataset
 		const pokemonID = parseInt(key)
 
@@ -57,7 +57,7 @@ function App() {
 				setCurrentPoints(0)
 				setClickedPokemon([])
 			} else {
-				const newList = randomizeCards()
+				const newList = randomizeCards(pokemonList)
 				setPokemonList(newList)
 				setCurrentPoints(newCurrentPoints)
 				setClickedPokemon((prev) => [...prev, pokemonID])
@@ -73,20 +73,20 @@ function App() {
 		}
 	}
 
-	function randomizeCards() {
-		const currentPokemonList = pokemonList
-		const lengthPokemonList = pokemonList.length
+	// function randomizeCards() {
+	// 	const currentPokemonList = pokemonList
+	// 	const lengthPokemonList = pokemonList.length
 
-		let newArray = []
-		for (let i = 0; i < lengthPokemonList; i++) {
-			const randomNumber = getRandomIntInclusive(0, currentPokemonList.length - 1)
+	// 	let newArray = []
+	// 	for (let i = 0; i < lengthPokemonList; i++) {
+	// 		const randomNumber = getRandomIntInclusive(0, currentPokemonList.length - 1)
 
-			newArray.push(currentPokemonList[randomNumber])
-			currentPokemonList.splice(randomNumber, 1)
-		}
+	// 		newArray.push(currentPokemonList[randomNumber])
+	// 		currentPokemonList.splice(randomNumber, 1)
+	// 	}
 
-		return newArray
-	}
+	// 	return newArray
+	// }
 
 	function handleOnChangeLevel(e) {
 		setLevelSelected(e.target.value)
@@ -105,18 +105,10 @@ function App() {
 				maxPoints={maxPoints}
 				onClickInstructions={handleOnClickInstructions}
 			/>
-			<main id="card-list">
-				{pokemonList.map((pokemon) => {
-					return (
-						<Card
-							key={pokemon.id}
-							pokemonURL={pokemon.url}
-							onClick={handleOnClick}
-							pokemonID={pokemon.id}
-						/>
-					)
-				})}
-			</main>
+			<CardList
+				pokemonList={pokemonList}
+				handleOnClickCard={handleOnClickCard}
+			/>
 		</>
 	)
 }
