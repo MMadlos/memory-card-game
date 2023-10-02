@@ -49,9 +49,9 @@ function App() {
 		const wasAlreadyClicked = clickedPokemon.includes(pokemonID)
 		if (!wasAlreadyClicked) {
 			const newCurrentPoints = currentPoints + 5
-			const maxPoints = pokemonList.length * 5
+			const maxPointsPossible = pokemonList.length * 5
 
-			if (newCurrentPoints === maxPoints) {
+			if (newCurrentPoints === maxPointsPossible) {
 				setCurrentPoints(newCurrentPoints)
 				setMaxPoints(newCurrentPoints)
 				alert("Wow! You have an excelent memory. You clicked all Pokemon")
