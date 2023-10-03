@@ -1,9 +1,10 @@
 import { render, screen } from "@testing-library/react"
-import Header from "./Header"
 import { describe, it, expect } from "vitest"
 
+import Header from "../src/components/Header"
+
 describe("Header component", () => {
-	it("renders title container", () => {
+	it("renders component", () => {
 		const { container } = render(<Header />)
 		expect(container).toMatchSnapshot()
 	})
